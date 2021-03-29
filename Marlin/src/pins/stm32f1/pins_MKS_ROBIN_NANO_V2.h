@@ -203,8 +203,8 @@
   #define KILL_PIN_STATE                    true  // Enable MKSPWC PIN STATE
 #endif
 
-#if HAS_TFT_LVGL_UI
-  // LVGL
+#if ANY(HAS_TFT_LVGL_UI, HAS_TFT_LVGL_UI_7)
+  /*// LVGL
   #ifndef TOUCH_CALIBRATION_X
     #define TOUCH_CALIBRATION_X           -17253
   #endif
@@ -219,7 +219,7 @@
   #endif
   #ifndef TOUCH_ORIENTATION
     #define TOUCH_ORIENTATION    TOUCH_LANDSCAPE
-  #endif
+  #endif*/
 
   #define MT_DET_1_PIN                        PA4   // LVGL UI FILAMENT RUNOUT1 PIN
   #define MT_DET_2_PIN                        PE6   // LVGL UI FILAMENT RUNOUT2 PIN
