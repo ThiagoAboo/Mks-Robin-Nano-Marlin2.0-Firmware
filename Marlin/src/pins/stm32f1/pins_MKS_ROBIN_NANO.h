@@ -148,7 +148,7 @@
 //
 // Misc. Functions
 //
-#if HAS_TFT_LVGL_UI
+#if ANY(HAS_TFT_LVGL_UI, HAS_TFT_LVGL_UI_7)
   // LVGL
   #ifndef TOUCH_CALIBRATION_X
     #define TOUCH_CALIBRATION_X             17880
