@@ -71,6 +71,8 @@
   #include "lcd/extui/lib/mks_ui/draw_ui.h"
   #include "lcd/extui/lib/mks_ui/mks_hardware_test.h"
   #include <lvgl.h>
+#elif HAS_TFT_LVGL_7_UI 
+  #include "lcd/extui/lib/mks_7_ui/mks_main_ui.h"
 #endif
 
 #if ENABLED(DWIN_CREALITY_LCD)
@@ -703,6 +705,7 @@ void idle(TERN_(ADVANCED_PAUSE_FEATURE, bool no_stepper_sleep/*=false*/)) {
 
   // Update the LVGL interface
   TERN_(HAS_TFT_LVGL_UI, LV_TASK_HANDLER());
+  TERN_(HAS_TFT_LVGL_7_UI, MKS_TASK_HANDLER());
 
   IDLE_DONE:
   TERN_(MARLIN_DEV_MODE, idle_depth--);
@@ -729,6 +732,8 @@ void kill(PGM_P const lcd_error/*=nullptr*/, PGM_P const lcd_component/*=nullptr
 
   #if HAS_TFT_LVGL_UI
     lv_draw_error_message(lcd_error);
+  #elif HAS_TFT_LVGL_7_UI
+    mks_draw_error_message(lcd_error);
   #endif
 
   #ifdef ACTION_ON_KILL
@@ -1238,11 +1243,15 @@ void setup() {
     SETUP_RUN(page_manager.init());
   #endif
 
-  #if HAS_TFT_LVGL_UI
+  #if ANY(HAS_TFT_LVGL_UI, HAS_TFT_LVGL_7_UI)
     #if ENABLED(SDSUPPORT)
       if (!card.isMounted()) SETUP_RUN(card.mount()); // Mount SD to load graphics and fonts
     #endif
-    SETUP_RUN(tft_lvgl_init());
+    #if HAS_TFT_LVGL_UI
+      SETUP_RUN(tft_lvgl_init());
+    #elif HAS_TFT_LVGL_7_UI
+      SETUP_RUN(mks_tft_init());
+    #endif
   #endif
 
   #if ENABLED(PASSWORD_ON_STARTUP)
@@ -1285,6 +1294,7 @@ void loop() {
     endstops.event_handler();
 
     TERN_(HAS_TFT_LVGL_UI, printer_state_polling());
+    TERN_(HAS_TFT_LVGL_7_UI, mks_printer_state_polling());
 
   } while (ENABLED(__AVR__)); // Loop forever on slower (AVR) boards
 }
