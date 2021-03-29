@@ -14,7 +14,7 @@ https://docs.lvgl.io/latest/en/html/index.html
 - "Symbol" pattern
 https://docs.lvgl.io/latest/en/html/overview/font.html?highlight=font%20image
 
- [Marlin2.0.x](https://github.com/MarlinFirmware/Marlin), added the [LittlevGL](https://github.com/littlevgl/lvgl), supporting colourful GUI and touch screen. It is developed on PlatformIO, we hope more and more developers will participate the development of this repository.
+ [Marlin2.0.x](https://github.com/MarlinFirmware/Marlin), added the [LVGL v7](https://github.com/lvgl/lvgl.git), supporting colourful GUI and touch screen. It is developed on PlatformIO, we hope more and more developers will participate the development of this repository.
 
 ![](https://github.com/ThiagoAboo/Mks-Robin-Nano-Marlin2.0-Firmware/blob/LVGL7-material-theme/Images/MKS_Robin_Nano_light.jpg)
 
@@ -38,7 +38,7 @@ The images should be added to gcode file when slicing, and MKS has developed the
      #define SERIAL_PORT 3  
      #define MKS_ROBIN_TFT35  
      #define MOTHERBOARD BOARD_MKS_ROBIN_NANO  
-     #define TFT_LVGL_UI_7  
+     #define TFT_LVGL_7_UI  
      #define TOUCH_SCREEN  
 
 2. Update firmware:
@@ -57,7 +57,7 @@ The images should be added to gcode file when slicing, and MKS has developed the
      #define SERIAL_PORT 3  
      #define MKS_TS35_V2_0  
      #define MOTHERBOARD BOARD_MKS_ROBIN_NANO_V2     
-     #define TFT_LVGL_UI_7  
+     #define TFT_LVGL_7_UI  
      #define TOUCH_SCREEN  
 
 2. Update firmware:
@@ -76,7 +76,7 @@ The images should be added to gcode file when slicing, and MKS has developed the
      #define SERIAL_PORT -1  
      #define MKS_TS35_V2_0  
      #define MOTHERBOARD BOARD_MKS_ROBIN_NANO_V3     
-     #define TFT_LVGL_UI_7  
+     #define TFT_LVGL_7_UI  
      #define TOUCH_SCREEN
 
 - Configuation_adv.h:    
