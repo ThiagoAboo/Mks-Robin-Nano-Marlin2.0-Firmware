@@ -28,7 +28,7 @@
 #include "../../inc/MarlinConfigPre.h"
 #include "../../core/serial_hook.h"
 
-#if HAS_TFT_LVGL_UI
+#if ANY(HAS_TFT_LVGL_UI, HAS_TFT_LVGL_7_UI)
   extern "C" { extern char public_buf_m[100]; }
 #endif
 
@@ -50,7 +50,7 @@ struct MarlinSerial : public HardwareSerial {
     }
   #endif
 
-  #if HAS_TFT_LVGL_UI
+  #if ANY(HAS_TFT_LVGL_UI, HAS_TFT_LVGL_7_UI)
     // Hook the serial write method to capture the output of GCode command sent via LCD
     uint32_t current_wpos;
     void (*line_callback)(void *, const char * msg);
