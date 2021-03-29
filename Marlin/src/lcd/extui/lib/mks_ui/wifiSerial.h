@@ -29,12 +29,12 @@
   #error "SERIAL_PORT_2 must be disabled with TFT_LVGL_UI* and MKS_WIFI_MODULE."
 #endif
 
-#define WIFI_BAUDRATE          115200
+#define WIFI_BAUDRATE          250000
 #define WIFI_UPLOAD_BAUDRATE  1958400
 #define USART_SAFE_INSERT
 
 #define WIFI_RX_BUF_SIZE  (1024)
-#define WIFI_TX_BUF_SIZE  (64)
+#define WIFI_TX_BUF_SIZE  (512)
 
 #ifdef __STM32F1__
 
