@@ -30,7 +30,6 @@
   extern "C" { /* C-declarations for C++ */
 #endif
 
-#include <lv_conf.h>
 #include <lvgl.h>
 
 #define TICK_CYCLE        1
