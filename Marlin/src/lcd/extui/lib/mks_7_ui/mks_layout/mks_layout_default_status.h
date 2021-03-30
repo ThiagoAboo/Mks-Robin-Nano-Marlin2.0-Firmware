@@ -33,10 +33,12 @@
 #include "mks_layout_style.h"
 
 extern void mks_layout_status(lv_obj_t * parent, lv_event_cb_t event);
+extern void mks_layout_status_update();
 
-void  mks_layout_status_container(lv_obj_t * parent);
-void  mks_layout_status_temp(lv_event_cb_t event, mks_layout_item_t item);
-void  mks_layout_status_position(lv_event_cb_t event);
+void mks_layout_status_container(lv_obj_t * parent);
+void mks_layout_status_temp(lv_event_cb_t event, mks_layout_item_t item);
+void mks_layout_status_position(lv_event_cb_t event);
+const char * mks_layout_status_temp_value(mks_layout_item_t item, uint8_t index);
 
 #ifdef __cplusplus
   } /* C-declarations for C++ */

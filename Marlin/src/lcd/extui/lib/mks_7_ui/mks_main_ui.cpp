@@ -46,6 +46,8 @@ void MKS_TASK_HANDLER() {
   #if HAS_ROTARY_ENCODER
     mks_update_encoder();
   #endif
+  
+  mks_task_handler();
   //if (marlin_state == MF_SD_COMPLETE) lv_print_finished();
 }
 

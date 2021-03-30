@@ -33,6 +33,11 @@ static lv_group_t * rotaryGroup;
 static mks_layout_cb _mks_layout_cb;
 static mks_layout_item_t mks_layout_item = MKS_LAYOUT_INIT;
 
+void mks_task_handler() {
+    mks_layout_item = MKS_LAYOUT_REFRESH;
+    if(_mks_layout_cb) { _mks_layout_cb(mks_layout_item, scr); }
+}
+
 void mks_add_rotary_group(lv_obj_t * obj) { 
     mks_trace_start(__func__);
     #if HAS_ROTARY_ENCODER

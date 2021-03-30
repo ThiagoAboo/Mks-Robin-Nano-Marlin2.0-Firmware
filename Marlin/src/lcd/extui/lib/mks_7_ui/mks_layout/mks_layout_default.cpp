@@ -61,6 +61,7 @@ void mks_layout_callback(mks_layout_item_t item, lv_obj_t * parent) {
         mks_layout_status(t1, mks_layout_event);
         break;
     case MKS_LAYOUT_REFRESH:
+        mks_layout_status_update();
         break;
     default:
         break;

@@ -63,6 +63,7 @@ extern lv_obj_t * mks_draw_label(const char * msg, uint16_t id, lv_align_t align
 extern void mks_change_label_text(lv_obj_t * obj, const char * msg, lv_align_t alignLabel);
 
 extern void mks_event_handler(lv_obj_t * obj, lv_event_t event);
+extern void mks_task_handler();
 
 #ifdef __cplusplus
   } /* C-declarations for C++ */
