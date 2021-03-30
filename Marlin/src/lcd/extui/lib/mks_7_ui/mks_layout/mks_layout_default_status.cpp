@@ -31,7 +31,13 @@ lv_obj_t * cont;
 void mks_layout_status(lv_obj_t * parent, lv_event_cb_t event) {
     mks_trace_start(__func__);
     mks_layout_status_container(parent);
-    mks_layout_status_temp(event);
+    mks_layout_status_temp(event, MKS_HOTEND_0);
+    #if DISABLED(SINGLENOZZLE) && HAS_MULTI_EXTRUDER
+        mks_layout_status_temp(event, MKS_HOTEND_1);
+    #endif
+    #if HAS_HEATED_BED
+        mks_layout_status_temp(event, MKS_BED);
+    #endif
     mks_layout_status_position(event);
     mks_trace_end(__func__);
 }
@@ -45,26 +51,35 @@ void  mks_layout_status_container(lv_obj_t * parent) {
     lv_obj_set_style_local_border_width(cont, LV_CONT_PART_MAIN, LV_STATE_DEFAULT, 0);
 }
 
-void  mks_layout_status_temp(lv_event_cb_t event) {
+void  mks_layout_status_temp(lv_event_cb_t event, mks_layout_item_t item) {
     mks_trace_start(__func__);
+    
+    mks_printer_value_t item_value;
+    uint8_t index = (item == MKS_HOTEND_0 ? 0 : 1);
+    String title = LV_SYMBOL_CHARGE;
+    title.concat((item == MKS_BED ? " Bed" : (item == MKS_HOTEND_0 ? " Hotend 1" : " Hotend 2")));
+
     lv_obj_t * btn = lv_btn_create(cont, NULL);
     lv_obj_set_event_cb(btn, event);
-    lv_btn_set_fit2(btn, LV_FIT_TIGHT, LV_FIT_TIGHT);
 
-    lv_obj_set_style_local_radius(btn, LV_BTN_PART_MAIN, LV_BTN_STATE_RELEASED, 5);
-    //lv_obj_set_style_local_bg_grad_color(btn, LV_BTN_PART_MAIN, LV_BTN_STATE_RELEASED, LV_COLOR_ORANGE);
-    //lv_obj_set_style_local_bg_grad_dir(btn, LV_BTN_PART_MAIN, LV_STATE_DEFAULT, LV_GRAD_DIR_VER);
+    mks_style_content_btn(btn, LV_COLOR_MAKE(0xFF,0x33,0x00), LV_COLOR_MAKE(0xFF,0x99,0x00));
 
     lv_obj_t * lTitle = lv_label_create(btn, NULL);
-    lv_label_set_text(lTitle, LV_SYMBOL_CHARGE " HotEnd");
-    lv_label_set_align(lTitle, LV_LABEL_ALIGN_CENTER);
+    lv_label_set_text(lTitle, title.c_str());
+    mks_style_content_btn_title(lTitle, LV_COLOR_MAKE(0xFF,0xFF,0xFF));
 
     String value = "Temp: ";
-    value.concat(String(mks_get_value(MKS_VALUE_TEMP_EXTRUDER,0),1));
+    
+    item_value = (item == MKS_BED ? MKS_VALUE_TEMP_BED : MKS_VALUE_TEMP_EXTRUDER);
+    value.concat(String(mks_get_value(item_value,index),1));
     value.concat("ºC\nSet: ");
-    value.concat(String(mks_get_value(MKS_VALUE_TARGET_EXTRUDER,0),0));
+    
+    item_value = (item == MKS_BED ? MKS_VALUE_TARGET_BED : MKS_VALUE_TARGET_EXTRUDER);
+    value.concat(String(mks_get_value(item_value,index),0));
     value.concat("ºC\nMax: ");
-    value.concat(String(mks_get_value(MKS_VALUE_MAX_EXTRUDER,0),0));
+    
+    item_value = (item == MKS_BED ? MKS_VALUE_MAX_BED : MKS_VALUE_MAX_EXTRUDER);
+    value.concat(String(mks_get_value(item_value,index),0));
     value.concat("ºC");
 
     lv_obj_t * lValue = lv_label_create(btn, NULL);
@@ -79,22 +94,20 @@ void  mks_layout_status_position(lv_event_cb_t event) {
     mks_trace_start(__func__);
     lv_obj_t * btn = lv_btn_create(cont, NULL);
     lv_obj_set_event_cb(btn, event);
-    lv_btn_set_fit2(btn, LV_FIT_TIGHT, LV_FIT_TIGHT);
 
-    lv_obj_set_style_local_radius(btn, LV_BTN_PART_MAIN, LV_BTN_STATE_RELEASED, 5);
-    //lv_obj_set_style_local_bg_grad_color(btn, LV_BTN_PART_MAIN, LV_BTN_STATE_RELEASED, LV_COLOR_SILVER);
-    //lv_obj_set_style_local_bg_grad_dir(btn, LV_BTN_PART_MAIN, LV_STATE_DEFAULT, LV_GRAD_DIR_VER);
+    mks_style_content_btn(btn, LV_COLOR_MAKE(0x66,0x99,0xFF), LV_COLOR_MAKE(0xAE,0xE4,0xFF));
 
     lv_obj_t * lTitle = lv_label_create(btn, NULL);
     lv_label_set_text(lTitle, LV_SYMBOL_PLUS " Position");
-    lv_label_set_align(lTitle, LV_LABEL_ALIGN_LEFT);
+    mks_style_content_btn_title(lTitle, LV_COLOR_MAKE(0xFF,0xFF,0xFF));
 
     String value = "X: ";
-    //value.concat(String(mks_get_value(MKS_VALUE_X_POS,0),1));
-    value.concat("\nY: ");
-    //value.concat(String(mks_get_value(MKS_VALUE_Y_POS,0),0));
-    value.concat("\nZ: ");
-    //value.concat(String(mks_get_value(MKS_VALUE_Z_POS,0),0));
+    value.concat("000");
+    value.concat("mm\nY: ");
+    value.concat("000");
+    value.concat("mm\nZ: ");
+    value.concat("000");
+    value.concat("mm");
     
     lv_obj_t * lValue = lv_label_create(btn, NULL);
     lv_label_set_text(lValue, value.c_str());

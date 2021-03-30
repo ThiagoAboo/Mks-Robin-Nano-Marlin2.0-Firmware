@@ -25,10 +25,11 @@
 
 #include "mks_layout_default.h"
 #include "mks_layout_default_status.h"
+#include "mks_layout_style.h"
 
 static lv_obj_t * tv;
 static lv_obj_t * t1;
-static lv_obj_t * t2;
+//static lv_obj_t * t2;
 static lv_obj_t * t3;
 static lv_obj_t * t4;
 //static lv_obj_t * kb;
@@ -95,8 +96,8 @@ void mks_create_main_panel(lv_obj_t * parent) {
 
     lv_obj_set_style_local_text_font(tv, LV_TABVIEW_PART_TAB_BTN, LV_STATE_DEFAULT, &lv_font_montserrat_18);
 
-    t1 = lv_tabview_add_tab(tv, LV_SYMBOL_HOME " Status");
-    t2 = lv_tabview_add_tab(tv, LV_SYMBOL_CUT " Tools");
+    t1 = lv_tabview_add_tab(tv, LV_SYMBOL_HOME " Home");
+    //t2 = lv_tabview_add_tab(tv, LV_SYMBOL_LIST " Tools");
     t3 = lv_tabview_add_tab(tv, LV_SYMBOL_SETTINGS " Config");
     t4 = lv_tabview_add_tab(tv, LV_SYMBOL_SD_CARD " SD");
 

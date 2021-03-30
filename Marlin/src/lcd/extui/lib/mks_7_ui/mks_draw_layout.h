@@ -42,7 +42,10 @@ typedef uint8_t mks_layout_t;
 enum {
   MKS_LAYOUT_INIT,
   MKS_LAYOUT_MAIN_PANEL,
-  MKS_LAYOUT_REFRESH
+  MKS_LAYOUT_REFRESH,
+  MKS_HOTEND_0,
+  MKS_HOTEND_1,
+  MKS_BED
 };
 typedef uint8_t mks_layout_item_t;
 

@@ -30,11 +30,12 @@
 #endif
 
 #include <lvgl.h>
+#include "mks_layout_style.h"
 
 extern void mks_layout_status(lv_obj_t * parent, lv_event_cb_t event);
 
 void  mks_layout_status_container(lv_obj_t * parent);
-void  mks_layout_status_temp(lv_event_cb_t event);
+void  mks_layout_status_temp(lv_event_cb_t event, mks_layout_item_t item);
 void  mks_layout_status_position(lv_event_cb_t event);
 
 #ifdef __cplusplus
