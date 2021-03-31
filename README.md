@@ -25,6 +25,7 @@ https://docs.lvgl.io/latest/en/html/overview/font.html?highlight=font%20image
 ## Support for all screen rotations
 
 -90 degree rotation
+
 ![](https://github.com/ThiagoAboo/Mks-Robin-Nano-Marlin2.0-Firmware/blob/LVGL7-material-theme/Images/MKS_Robin_Nano_dark_90.jpg)
 
 ## Build
