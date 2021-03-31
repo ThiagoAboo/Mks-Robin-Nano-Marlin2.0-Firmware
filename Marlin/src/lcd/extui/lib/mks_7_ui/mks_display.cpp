@@ -36,15 +36,18 @@ void mks_init_spi() {
   
   mks_trace_start("W25QXX.init");
   W25QXX.init(SPI_QUARTER_SPEED);
-  mks_trace_end_start("W25QXX.init","watchdog_refresh()");
+  mks_trace_end("W25QXX.init");
 
   watchdog_refresh();
-  mks_trace_end_start("watchdog_refresh()","SPI_TFT.spi_init");
 
+  mks_trace_start("SPI_TFT.spi_init");
   SPI_TFT.spi_init(SPI_FULL_SPEED);
-  mks_trace_end_start("SPI_TFT.spi_init", "SPI_TFT.LCD_init");
+  mks_trace_end("SPI_TFT.spi_init");
 
+  mks_trace_start("SPI_TFT.LCD_init");
   SPI_TFT.LCD_init();
+  mks_trace_end("SPI_TFT.LCD_init");
+
   mks_trace_end(__func__);
 }
 
@@ -65,6 +68,7 @@ void mks_lv_register() {
   indev_drv.read_cb = mks_touchpad_read;  /*Set your driver function*/
   lv_indev_drv_register(&indev_drv);   /*Finally register the driver*/
 
+  mks_register_rotary_group();
 /*
   lv_fs_drv_t spi_flash_drv;
   lv_fs_drv_init(&spi_flash_drv);
@@ -109,13 +113,6 @@ void mks_disp_flush(lv_disp_drv_t * disp, const lv_area_t * area, lv_color_t * c
   lv_disp_flush_ready(disp);       /* Indicate you are ready with the flushing*/
 
   W25QXX.init(SPI_QUARTER_SPEED);
-}
-
-void mks_drawCross(uint16_t x, uint16_t y, uint16_t color) {
-  SPI_TFT.tftio.set_window(x - 15, y, x + 15, y);
-  SPI_TFT.tftio.WriteMultiple(color, 31);
-  SPI_TFT.tftio.set_window(x, y - 15, x, y + 15);
-  SPI_TFT.tftio.WriteMultiple(color, 31);
 }
 
 void mks_disp_string(uint16_t x, uint16_t y, const char * string, uint16_t charColor, uint16_t bkColor) {

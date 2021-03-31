@@ -74,33 +74,36 @@ void mks_create_main_panel(lv_obj_t * parent) {
     lv_obj_set_event_cb(tv, mks_layout_event);
 
     #if LV_USE_THEME_MATERIAL
-        //if(LV_THEME_DEFAULT_INIT == lv_theme_material_init) {
-            LV_THEME_DEFAULT_INIT(lv_theme_get_color_primary(), lv_theme_get_color_secondary(), mks_CfgItems.theme_dark,
-                    lv_theme_get_font_small(), lv_theme_get_font_normal(), lv_theme_get_font_subtitle(), lv_theme_get_font_title());
+        LV_THEME_DEFAULT_INIT(lv_theme_get_color_primary(), lv_theme_get_color_secondary(), mks_CfgItems.theme_dark,
+                lv_theme_get_font_small(), lv_theme_get_font_normal(), lv_theme_get_font_subtitle(), lv_theme_get_font_title());
 
-            lv_disp_size_t disp_size = lv_disp_get_size_category(NULL);
-            if(disp_size >= LV_DISP_SIZE_MEDIUM) {
-                lv_obj_set_style_local_pad_left(tv, LV_TABVIEW_PART_TAB_BG, LV_STATE_DEFAULT, LV_HOR_RES / 4);
-                lv_obj_t * sw = lv_switch_create(lv_scr_act(), NULL);
-                if(lv_theme_get_flags() & LV_THEME_MATERIAL_FLAG_DARK)
-                    lv_switch_on(sw, LV_ANIM_OFF);
-                lv_obj_set_event_cb(sw, mks_color_chg_event_cb);
-                lv_obj_set_pos(sw, LV_DPX(10), LV_DPX(20));
-                lv_obj_set_style_local_value_str(sw, LV_SWITCH_PART_BG, LV_STATE_DEFAULT, "Dark");
-                lv_obj_set_style_local_value_align(sw, LV_SWITCH_PART_BG, LV_STATE_DEFAULT, LV_ALIGN_OUT_RIGHT_MID);
-                lv_obj_set_style_local_value_ofs_x(sw, LV_SWITCH_PART_BG, LV_STATE_DEFAULT, LV_DPI/35);
-                
-                mks_add_rotary_group(sw);
-            }
-        //}
+        lv_disp_size_t disp_size = lv_disp_get_size_category(NULL);
+        if(disp_size >= LV_DISP_SIZE_MEDIUM) {
+            lv_obj_set_style_local_pad_left(tv, LV_TABVIEW_PART_TAB_BG, LV_STATE_DEFAULT, LV_HOR_RES / 4);
+            lv_obj_t * sw = lv_switch_create(lv_scr_act(), NULL);
+            if(lv_theme_get_flags() & LV_THEME_MATERIAL_FLAG_DARK) { lv_switch_on(sw, LV_ANIM_OFF); }
+            lv_obj_set_event_cb(sw, mks_color_chg_event_cb);
+            lv_obj_set_pos(sw, LV_DPX(10), LV_DPX(20));
+            lv_obj_set_style_local_value_str(sw, LV_SWITCH_PART_BG, LV_STATE_DEFAULT, "Dark");
+            lv_obj_set_style_local_value_align(sw, LV_SWITCH_PART_BG, LV_STATE_DEFAULT, LV_ALIGN_OUT_RIGHT_MID);
+            lv_obj_set_style_local_value_ofs_x(sw, LV_SWITCH_PART_BG, LV_STATE_DEFAULT, LV_DPI/35);
+            mks_add_rotary_group(sw);
+        }
     #endif
 
     lv_obj_set_style_local_text_font(tv, LV_TABVIEW_PART_TAB_BTN, LV_STATE_DEFAULT, &lv_font_montserrat_18);
 
-    t1 = lv_tabview_add_tab(tv, LV_SYMBOL_HOME " Home");
-    //t2 = lv_tabview_add_tab(tv, LV_SYMBOL_LIST " Tools");
-    t3 = lv_tabview_add_tab(tv, LV_SYMBOL_SETTINGS " Config");
-    t4 = lv_tabview_add_tab(tv, LV_SYMBOL_SD_CARD " SD");
+    #if TFT_ROTATION == TFT_ROTATE_90 | TFT_ROTATION == TFT_ROTATE_270
+        t1 = lv_tabview_add_tab(tv, LV_SYMBOL_HOME "");
+        //t2 = lv_tabview_add_tab(tv, LV_SYMBOL_LIST "");
+        t3 = lv_tabview_add_tab(tv, LV_SYMBOL_SETTINGS "");
+        t4 = lv_tabview_add_tab(tv, LV_SYMBOL_SD_CARD "");
+    #else
+        t1 = lv_tabview_add_tab(tv, LV_SYMBOL_HOME " Home");
+        //t2 = lv_tabview_add_tab(tv, LV_SYMBOL_LIST " Tools");
+        t3 = lv_tabview_add_tab(tv, LV_SYMBOL_SETTINGS " Config");
+        t4 = lv_tabview_add_tab(tv, LV_SYMBOL_SD_CARD " SD");
+    #endif
 
     #if LV_USE_ANIMATION
         task = lv_task_create(tab_changer_task_cb, 30000, LV_TASK_PRIO_LOW, NULL);

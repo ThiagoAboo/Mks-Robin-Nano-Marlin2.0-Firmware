@@ -45,12 +45,14 @@ void lvgl_log(lv_log_level_t level, const char * file, uint32_t line, const char
 void mks_trace_start(const char * msg) {
   #if ENABLED(MARLIN_DEV_MODE)
     SERIAL_ECHO_MSG("Iniciando ", msg);
+    delay(10);
   #endif
 }
 
 void mks_trace_end(const char * msg) {
   #if ENABLED(MARLIN_DEV_MODE)
     SERIAL_ECHO_MSG("Finalizado ", msg);
+    delay(10);
   #endif
 }
 
@@ -58,11 +60,13 @@ void mks_trace_end_start(const char * msg1, const char * msg2) {
   #if ENABLED(MARLIN_DEV_MODE)
     SERIAL_ECHO_MSG("Finalizado ", msg1);
     SERIAL_ECHO_MSG("Iniciando ", msg2);
+    delay(10);
   #endif
 }
 
 void mks_trace(const char * V, ...) {
   #if ENABLED(MARLIN_DEV_MODE)
     SERIAL_ECHO_F(V);
+    delay(10);
   #endif
 }

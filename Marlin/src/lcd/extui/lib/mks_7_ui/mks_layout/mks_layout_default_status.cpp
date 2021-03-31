@@ -57,6 +57,8 @@ void mks_layout_status(lv_obj_t * parent, lv_event_cb_t event) {
         mks_layout_status_temp(event, MKS_BED);
     #endif
     mks_layout_status_position(event);
+    mks_layout_status_position(event);
+    mks_layout_status_position(event);
     mks_trace_end(__func__);
 }
 

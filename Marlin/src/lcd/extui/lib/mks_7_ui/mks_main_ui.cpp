@@ -47,34 +47,30 @@ void MKS_TASK_HANDLER() {
     mks_update_encoder();
   #endif
   
-  mks_task_handler();
+  //mks_task_handler();
   //if (marlin_state == MF_SD_COMPLETE) lv_print_finished();
 }
 
 void mks_printer_state_polling() {}
 
 void mks_tft_init() {
-
-  mks_trace_start("lv_log_register_print_cb()");
   lv_log_register_print_cb(lvgl_log);
-  mks_trace_end("lv_log_register_print_cb()");
 
   mks_init_spi();
   mks_init_touch();
   mks_load_spi_flash();
-
-  mks_trace_start("lv_init()");
   lv_init();
-  mks_trace_end("lv_init()");
-  
   mks_lv_register();
-  mks_create_touch();
-  mks_encoder_init();
-  
+
   systick_attach_callback(mks_SysTick_Callback);
 
+  mks_encoder_init();
   mks_draw_layout_load();
-  mks_draw_layout();
+  
+  mks_create_touch();
+  if (!mks_CfgItems.touch_calibration) {
+    mks_draw_layout();
+  }
 }
 
 void mks_SysTick_Callback() {

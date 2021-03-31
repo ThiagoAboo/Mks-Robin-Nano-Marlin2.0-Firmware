@@ -39,7 +39,6 @@ extern void mks_init_spi();
 extern void mks_lv_register();
 extern void mks_draw_error_message(PGM_P const msg);
 extern void mks_disp_flush(lv_disp_drv_t * disp, const lv_area_t * area, lv_color_t * color_p);
-extern void mks_drawCross(uint16_t x, uint16_t y, uint16_t color);
 extern void mks_disp_string(uint16_t x, uint16_t y, const char * string, uint16_t charColor, uint16_t bkColor);
 extern void mks_disp_char_1624(uint16_t x, uint16_t y, uint8_t c, uint16_t charColor, uint16_t bkColor);
 

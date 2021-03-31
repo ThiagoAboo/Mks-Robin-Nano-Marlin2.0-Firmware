@@ -15,13 +15,13 @@ void mks_style_content_btn(lv_obj_t * obj, lv_color_t bg_color, lv_color_t grad_
     if (!is_init) { mks_style_init(); }
     lv_obj_remove_style(obj, LV_BTN_PART_MAIN, &style_cont_btn);
 
-    lv_btn_set_fit2(obj, LV_FIT_NONE, LV_FIT_TIGHT);
+    lv_btn_set_fit2(obj, LV_FIT_TIGHT, LV_FIT_TIGHT);
 
     lv_style_init(&style_cont_btn);
-    lv_style_set_transform_width(&style_cont_btn, LV_STATE_DEFAULT, LV_HOR_RES / 250);
-    lv_style_set_transform_width(&style_cont_btn, LV_BTN_STATE_RELEASED, -5);
-    lv_style_set_transform_width(&style_cont_btn, LV_STATE_FOCUSED, 5);
-    lv_style_set_transform_width(&style_cont_btn, LV_STATE_PRESSED, -5);
+    //lv_style_set_transform_width(&style_cont_btn, LV_STATE_DEFAULT, LV_HOR_RES / 3);
+    lv_style_set_transform_width(&style_cont_btn, LV_BTN_STATE_RELEASED, 0);
+    lv_style_set_transform_width(&style_cont_btn, LV_STATE_FOCUSED, 2);
+    lv_style_set_transform_width(&style_cont_btn, LV_STATE_PRESSED, 0);
     //lv_style_set_transform_height(&style_cont_btn, LV_STATE_PRESSED, -5);
     lv_style_set_transition_time(&style_cont_btn, LV_STATE_DEFAULT, 250);
     lv_style_set_transition_delay(&style_cont_btn, LV_STATE_DEFAULT, 100);
@@ -56,7 +56,9 @@ void mks_style_content_btn_title(lv_obj_t * obj, lv_color_t font_color)
     
     lv_label_set_align(obj, LV_LABEL_ALIGN_CENTER);
     //lv_style_set_text_color(&style_cont_btn_title, LV_STATE_DEFAULT, font_color);
-    lv_style_set_text_font(&style_cont_btn_title, LV_STATE_DEFAULT, &lv_font_montserrat_18);
+    #if !(TFT_ROTATION == TFT_ROTATE_90 | TFT_ROTATION == TFT_ROTATE_270)
+        lv_style_set_text_font(&style_cont_btn_title, LV_STATE_DEFAULT, &lv_font_montserrat_18);
+    #endif
 
     lv_obj_add_style(obj, LV_LABEL_PART_MAIN, &style_cont_btn_title);
 }

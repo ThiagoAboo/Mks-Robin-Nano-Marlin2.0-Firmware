@@ -43,6 +43,7 @@ typedef struct {
   uint8_t wifi_type;
   uint32_t theme_dark;
   bool encoder_enable;
+  bool touch_calibration;
 } MKS_CFG_ITMES;
 
 extern MKS_CFG_ITMES mks_CfgItems;

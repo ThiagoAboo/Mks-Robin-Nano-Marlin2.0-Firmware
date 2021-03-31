@@ -31,7 +31,8 @@
 MKS_CFG_ITMES mks_CfgItems;
 
 void mks_load_spi_flash() {
-    
+    mks_trace_start(__func__);
+
     mks_CfgItems.theme_dark         = 0x02;
     mks_CfgItems.wifi_mode_sel      = MKS_STA_MODEL;
     mks_CfgItems.wifi_type          = MKS_ESP_WIFI;
@@ -60,6 +61,7 @@ void mks_load_spi_flash() {
         W25QXX.SPI_FLASH_BufferWrite((uint8_t *)&mks_custom_gcode_command[3], MKS_OTHERS_COMMAND_ADDR_3, 100);
         W25QXX.SPI_FLASH_BufferWrite((uint8_t *)&mks_custom_gcode_command[4], MKS_OTHERS_COMMAND_ADDR_4, 100);
     }
+    mks_trace_end(__func__);
 }
 
 void mks_update_spi_flash() {

@@ -47,11 +47,9 @@ void mks_add_rotary_group(lv_obj_t * obj) {
     mks_trace_end(__func__);
 }
 
-void mks_clear_disp() {
+void mks_register_rotary_group() {
     mks_trace_start(__func__);
-    if (scr != nullptr) { lv_obj_del(scr); }
-    scr = lv_scr_act();
-    
+
     if (rotaryGroup != nullptr) { lv_group_del(rotaryGroup); }
     rotaryGroup = lv_group_create();
 
@@ -62,13 +60,21 @@ void mks_clear_disp() {
         enc_drv.read_cb = mks_mousewheel_read;
         lv_indev_t * enc_indev = lv_indev_drv_register(&enc_drv);
         lv_indev_set_group(enc_indev, rotaryGroup);
-        mks_trace("Register rotary endev\n");
+        mks_trace("Register rotary endev");
     #endif
     
-    if (rotaryGroup==nullptr) { mks_trace("rotaryGroup:nullptr\n"); }
-    else if (rotaryGroup==NULL) { mks_trace("rotaryGroup:null\n"); }
-    else { mks_trace("rotaryGroup:create\n"); }
+    mks_trace_end(__func__);
+}
 
+void mks_clear_disp() {
+    mks_trace_start(__func__);
+    if (scr != nullptr) { 
+        lv_obj_clean(scr); 
+    }
+    else { 
+        scr = lv_obj_create(nullptr, nullptr);
+        lv_scr_load(scr);
+    }
     mks_trace_end(__func__);
 }
 
@@ -78,23 +84,33 @@ void mks_layout_set_cb(mks_layout_cb cb) {
 
 void mks_draw_layout_load() {
     mks_trace_start(__func__);
-    if (mks_layout_item == MKS_LAYOUT_INIT) mks_layout_item = MKS_LAYOUT_MAIN_PANEL;
+    if (mks_layout_item == MKS_LAYOUT_NONE) mks_layout_item = MKS_LAYOUT_INIT;
     mks_clear_disp();
-    mks_layout_init();
     mks_trace_end(__func__);
 }
 
 void mks_draw_layout() {
     mks_trace_start(__func__);
+    if (mks_layout_item == MKS_LAYOUT_INIT) {
+        mks_clear_disp(); 
+        mks_layout_init();
+        mks_layout_item = MKS_LAYOUT_MAIN_PANEL; 
+    }
     if(_mks_layout_cb) { _mks_layout_cb(mks_layout_item, scr); }
     lv_refr_now(_lv_refr_get_disp_refreshing());
     mks_trace_end(__func__);
 }
 
 void mks_event_handler(lv_obj_t * obj, lv_event_t event) {
+    
+    uint8_t id = obj->user_data;
+
     switch (event) {
     case LV_EVENT_CLICKED:
         mks_trace("Event Clicked\n");
+        mks_layout_item = id;
+        SERIAL_ECHOLNPAIR("mks_layout_item:", mks_layout_item);
+        mks_draw_layout();
         break;
     case LV_EVENT_VALUE_CHANGED:
         mks_trace("Event Value Changed\n");
@@ -104,33 +120,38 @@ void mks_event_handler(lv_obj_t * obj, lv_event_t event) {
     }
 }
 
-lv_obj_t * mks_draw_button(const char * name, uint16_t id, lv_align_t align, lv_coord_t x_ofs, lv_coord_t y_ofs) {
-    lv_obj_t * label;
-
+lv_obj_t * mks_draw_button(const char * name, mks_layout_item_t id, lv_align_t align, lv_coord_t x_ofs, lv_coord_t y_ofs) {
     lv_obj_t * btn = lv_btn_create(scr, NULL);
     lv_obj_set_event_cb(btn, mks_event_handler);
-    lv_obj_align(btn, NULL, align, x_ofs, y_ofs);
-    label = lv_label_create(btn, NULL);
+    btn->user_data = id;
+
+    lv_obj_t * label = lv_label_create(btn, NULL);
     lv_label_set_text(label, name);
     lv_label_set_align(label, LV_LABEL_ALIGN_CENTER);
 
-    lv_refr_now(_lv_refr_get_disp_refreshing());
+    lv_btn_set_fit2(btn, LV_FIT_TIGHT, LV_FIT_TIGHT);
+    lv_obj_align(btn, NULL, align, x_ofs, y_ofs);
+
     mks_add_rotary_group(btn);
+    lv_refr_now(_lv_refr_get_disp_refreshing());
     return btn;
 }
 
-lv_obj_t * mks_draw_label(const char * msg, uint16_t id, lv_align_t alignLabel, lv_align_t alignObj, lv_coord_t x_ofs, lv_coord_t y_ofs) {
+lv_obj_t * mks_draw_label(const char * msg, lv_align_t alignLabel, lv_align_t alignObj, lv_coord_t x_ofs, lv_coord_t y_ofs) {
     lv_obj_t * label = lv_label_create(scr, NULL);
+    lv_label_set_text(label, msg);
     lv_obj_align(label, NULL, alignObj, x_ofs, y_ofs);
     lv_label_set_align(label, alignLabel);
-    
     lv_refr_now(_lv_refr_get_disp_refreshing());
     return label;
 }
 
 void mks_change_label_text(lv_obj_t * obj, const char * msg, lv_align_t alignLabel) {
-  lv_label_set_text(obj, msg);
-  lv_obj_align(obj, nullptr, alignLabel, 0, 0);
+     mks_trace_start(__func__);
+    lv_label_set_text(obj, msg);
+    lv_obj_realign(obj);
+    lv_refr_now(_lv_refr_get_disp_refreshing());
+    mks_trace_end(__func__);
 }
 
 #endif
