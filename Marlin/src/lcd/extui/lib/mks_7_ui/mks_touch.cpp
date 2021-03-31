@@ -150,8 +150,15 @@ bool mks_touchpad_read(lv_indev_drv_t * indev_driver, lv_indev_data_t * data) {
     if (mks_get_point(&last_x, &last_y)) {
       if (last_touch_state == LV_INDEV_STATE_PR) return false;
       data->state = LV_INDEV_STATE_PR;
-      data->point.x = last_x;
-      data->point.y = last_y;
+
+      // Set the coordinates (if released use the last-pressed coordinates)
+      #if TFT_ROTATION == TFT_ROTATE_180
+        data->point.x = TFT_WIDTH - last_x;
+        data->point.y = TFT_HEIGHT -last_y;
+      #else
+        data->point.x = last_x;
+        data->point.y = last_y;
+      #endif
 
       #ifdef DEBUG_TOUCH_CALIBRATION
         SERIAL_ECHOLNPAIR("TOUCH_X ", data->point.x);

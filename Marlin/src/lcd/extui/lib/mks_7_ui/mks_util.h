@@ -33,16 +33,8 @@
 #ifdef LV_PORTRAIT
   #undef TFT_WIDTH
   #undef TFT_HEIGHT
-  #if ENABLED(TFT_RES_320x240)
-    #define TFT_WIDTH  240
-    #define TFT_HEIGHT 320
-  #elif ENABLED(TFT_RES_480x272)
-    #define TFT_WIDTH  272
-    #define TFT_HEIGHT 480
-  #elif ENABLED(TFT_RES_480x320)
-    #define TFT_WIDTH  320
-    #define TFT_HEIGHT 480
-  #endif
+  #define TFT_WIDTH  LV_HOR_RES_MAX
+  #define TFT_HEIGHT LV_VER_RES_MAX
 #endif
 
 #if ENABLED(MARLIN_DEV_MODE)
