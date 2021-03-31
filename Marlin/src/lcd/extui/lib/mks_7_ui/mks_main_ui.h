@@ -26,11 +26,11 @@
 #if HAS_TFT_LVGL_7_UI
 
 #include "mks_util.h"
+#include "mks_spi_flash.h"
 #include "mks_display.h"
 #include "mks_touch.h"
 #include "mks_rotary_encoder.h"
 #include "mks_draw_layout.h"
-#include "mks_spi_flash.h"
 #include "mks_printer_value.h"
 
 #ifdef __cplusplus

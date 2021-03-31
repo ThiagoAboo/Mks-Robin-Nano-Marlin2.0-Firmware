@@ -22,6 +22,8 @@
 
 #include "mks_util.h"
 
+#if HAS_TFT_LVGL_7_UI
+
 #include "../../MarlinCore.h"
 
 unsigned int mks_getTickDiff(unsigned int curTick, unsigned int lastTick) {
@@ -36,3 +38,5 @@ void lvgl_log(lv_log_level_t level, const char * file, uint32_t line, const char
 void serial_trace_msg()  { static PGMSTR(tracemagic, "-TRACE--MSG--"); serialprintPGM(tracemagic); }
 void serial_trace_sta()  { static PGMSTR(tracemagic, "-TRACE-START-"); serialprintPGM(tracemagic); }
 void serial_trace_end()  { static PGMSTR(tracemagic, "-TRACE--END--"); serialprintPGM(tracemagic); }
+
+#endif
