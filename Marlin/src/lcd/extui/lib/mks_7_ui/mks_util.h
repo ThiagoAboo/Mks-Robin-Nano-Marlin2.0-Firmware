@@ -29,6 +29,10 @@
 #include "../../../../MarlinCore.h"
 #include "../../inc/MarlinConfig.h"
 
+#ifndef LV_CONF_PATH
+  #define LV_CONF_PATH "lv_conf.h"
+#endif
+
 #include "lv_conf.h"
 #ifdef LV_PORTRAIT
   #undef TFT_WIDTH
