@@ -39,10 +39,10 @@ static const char mks_custom_gcode_command[][100] = {
 
 typedef struct {
   uint32_t spi_flash_flag;
+  uint8_t disp_rotation_180;
   uint8_t wifi_mode_sel;
   uint8_t wifi_type;
   uint32_t theme_dark;
-  bool encoder_enable;
   bool touch_calibration;
 } MKS_CFG_ITMES;
 
@@ -55,6 +55,8 @@ extern MKS_CFG_ITMES mks_CfgItems;
 // SD card information first addr
 #define MKS_VAR_INF_ADDR                    0x000000
 #define MKS_FLASH_INF_VALID_FLAG            0x20201118
+
+#define REFLSHE_FLGA_ADD                    (0X800000-32)
 
 //Store some gcode commands, such as auto leveling commands
 #define MKS_GCODE_COMMAND_ADDR              MKS_VAR_INF_ADDR + 3*1024

@@ -38,7 +38,7 @@ void TFT::spi_init(uint8_t spiRate) {
 }
 
 void TFT::SetPoint(uint16_t x, uint16_t y, uint16_t point) {
-  if ((x > 480) || (y > 320)) return;
+  if ((x > TFT_WIDTH) || (y > TFT_HEIGHT)) return;
 
   setWindow(x, y, 1, 1);
   tftio.WriteMultiple(point, (uint16_t)1);

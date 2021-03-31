@@ -24,9 +24,8 @@
 #if HAS_TFT_LVGL_7_UI
 
 #include "mks_main_ui.h"
-
-#include "../../../../MarlinCore.h" // for marlin_state
 #include "../../../../libs/W25Qxx.h"
+#include "../../../tft_io/tft_io.h"
 
 MKS_CFG_ITMES mks_CfgItems;
 
@@ -36,14 +35,9 @@ void mks_load_spi_flash() {
     mks_CfgItems.theme_dark         = 0x02;
     mks_CfgItems.wifi_mode_sel      = MKS_STA_MODEL;
     mks_CfgItems.wifi_type          = MKS_ESP_WIFI;
-    mks_CfgItems.encoder_enable     = false;
-
-    #if HAS_ROTARY_ENCODER
-        mks_CfgItems.encoder_enable = true;
-    #endif
 
     #if LV_USE_THEME_MATERIAL
-        mks_CfgItems.theme_dark     = LV_THEME_MATERIAL_FLAG_LIGHT;
+        mks_CfgItems.theme_dark = LV_THEME_MATERIAL_FLAG_LIGHT;
     #endif
     
     W25QXX.SPI_FLASH_BufferRead((uint8_t *)&mks_CfgItems.spi_flash_flag, MKS_VAR_INF_ADDR, sizeof(mks_CfgItems.spi_flash_flag));
@@ -61,6 +55,17 @@ void mks_load_spi_flash() {
         W25QXX.SPI_FLASH_BufferWrite((uint8_t *)&mks_custom_gcode_command[3], MKS_OTHERS_COMMAND_ADDR_3, 100);
         W25QXX.SPI_FLASH_BufferWrite((uint8_t *)&mks_custom_gcode_command[4], MKS_OTHERS_COMMAND_ADDR_4, 100);
     }
+    
+    const byte rot = (TFT_ROTATION & TFT_ROTATE_180) ? 0xEE : 0x00;
+    if (mks_CfgItems.disp_rotation_180 != rot) {
+        mks_CfgItems.disp_rotation_180 = rot;
+        mks_update_spi_flash();
+    }
+    
+    uint8_t F[4] = {'N','A','N','O'};
+    W25QXX.SPI_FLASH_BlockErase(REFLSHE_FLGA_ADD + 32 - 64*1024);
+    W25QXX.SPI_FLASH_BufferWrite(F,REFLSHE_FLGA_ADD,4);
+
     MSK_TRACE_END(__func__);
 }
 
