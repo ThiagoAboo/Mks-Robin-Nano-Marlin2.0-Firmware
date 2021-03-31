@@ -47,20 +47,20 @@ The images should be added to gcode file when slicing, and MKS has developed the
      #define MKS_ROBIN_TFT35  
      #define MOTHERBOARD BOARD_MKS_ROBIN_NANO  
      #define TFT_LVGL_7_UI  
-     #define TOUCH_SCREEN  
-
-1.1. Configuration for screen rotation
-
-- This version supports all screen rotations.
-
-- Configuration.h:   
-     #define TFT_ROTATION //uncomment this line and inform the desired rotation
+     #define TOUCH_SCREEN    
      
-- lv_conf.h (\Marlin\src\lcd\extui\lib\mks_7_ui\lv_conf.h):   
-     #define LV_WIDTH_MAX  (480) //fill with the width of the display
-     #define LV_HEIGHT_MAX (320) //fill with the height of the display
-     #define LV_PORTRAIT //uncomment this line if the rotation is 90 or 270 degrees
-
+1.1. Configuration for screen rotation  
+     
+- This version supports all screen rotations.  
+     
+- Configuration.h:  
+     #define TFT_ROTATION //uncomment this line and inform the desired rotation  
+     
+- lv_conf.h (\Marlin\src\lcd\extui\lib\mks_7_ui\lv_conf.h):  
+     #define LV_WIDTH_MAX  (480) //fill with the width of the display  
+     #define LV_HEIGHT_MAX (320) //fill with the height of the display  
+     #define LV_PORTRAIT //uncomment this line if the rotation is 90 or 270 degrees  
+     
 2. Update firmware:
    
 - Enter the `.pio\build\mks_robin_nano35` directory, copy the `Robin_nano35.bin` to the sd card
@@ -78,20 +78,20 @@ The images should be added to gcode file when slicing, and MKS has developed the
      #define MKS_TS35_V2_0  
      #define MOTHERBOARD BOARD_MKS_ROBIN_NANO_V2     
      #define TFT_LVGL_7_UI  
-     #define TOUCH_SCREEN  
-
-1.1. Configuration for screen rotation
-
-- This version supports all screen rotations.
-
-- Configuration.h:   
-     #define TFT_ROTATION //uncomment this line and inform the desired rotation
+     #define TOUCH_SCREEN    
      
-- lv_conf.h (\Marlin\src\lcd\extui\lib\mks_7_ui\lv_conf.h):   
-     #define LV_WIDTH_MAX  (480) //fill with the width of the display
-     #define LV_HEIGHT_MAX (320) //fill with the height of the display
-     #define LV_PORTRAIT //uncomment this line if the rotation is 90 or 270 degrees
-
+1.1. Configuration for screen rotation  
+     
+- This version supports all screen rotations.  
+     
+- Configuration.h:  
+     #define TFT_ROTATION //uncomment this line and inform the desired rotation  
+     
+- lv_conf.h (\Marlin\src\lcd\extui\lib\mks_7_ui\lv_conf.h):  
+     #define LV_WIDTH_MAX  (480) //fill with the width of the display  
+     #define LV_HEIGHT_MAX (320) //fill with the height of the display  
+     #define LV_PORTRAIT //uncomment this line if the rotation is 90 or 270 degrees  
+     
 2. Update firmware:
    
 - Enter the `.pio\build\mks_robin_nano35` directory, copy the `Robin_nano35.bin` to the sd card
@@ -115,20 +115,20 @@ The images should be added to gcode file when slicing, and MKS has developed the
      Now you can either use the TF card or USB disk, use TF card:   
     // #define USB_FLASH_DRIVE_SUPPORT  
     Use USB disk:  
-     #define USB_FLASH_DRIVE_SUPPORT  
-
-1.1. Configuration for screen rotation
-
-- This version supports all screen rotations.
-
-- Configuration.h:   
-     #define TFT_ROTATION //uncomment this line and inform the desired rotation
+     #define USB_FLASH_DRIVE_SUPPORT    
      
-- lv_conf.h (\Marlin\src\lcd\extui\lib\mks_7_ui\lv_conf.h):   
-     #define LV_WIDTH_MAX  (480) //fill with the width of the display
-     #define LV_HEIGHT_MAX (320) //fill with the height of the display
-     #define LV_PORTRAIT //uncomment this line if the rotation is 90 or 270 degrees
-
+1.1. Configuration for screen rotation  
+     
+- This version supports all screen rotations.  
+     
+- Configuration.h:  
+     #define TFT_ROTATION //uncomment this line and inform the desired rotation  
+     
+- lv_conf.h (\Marlin\src\lcd\extui\lib\mks_7_ui\lv_conf.h):  
+     #define LV_WIDTH_MAX  (480) //fill with the width of the display  
+     #define LV_HEIGHT_MAX (320) //fill with the height of the display  
+     #define LV_PORTRAIT //uncomment this line if the rotation is 90 or 270 degrees  
+     
 2. Update firmware:
    
 - Enter the `.pio\build\mks_robin_nano35` directory, copy the `Robin_nano_v3.bin` to the sd card or usb disk
