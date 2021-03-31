@@ -160,10 +160,7 @@ bool mks_touchpad_read(lv_indev_drv_t * indev_driver, lv_indev_data_t * data) {
         data->point.y = last_y;
       #endif
 
-      #ifdef DEBUG_TOUCH_CALIBRATION
-        SERIAL_ECHOLNPAIR("TOUCH_X ", data->point.x);
-        SERIAL_ECHOLNPAIR("TOUCH_Y ", data->point.y);
-      #endif
+      MKS_TRACE("TOUCH_X:", data->point.x, ", TOUCH_Y:", data->point.y);
 
       last_x = last_y = 0;
       last_touch_state = LV_INDEV_STATE_PR;
