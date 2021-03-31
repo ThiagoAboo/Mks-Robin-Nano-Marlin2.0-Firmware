@@ -29,12 +29,7 @@
 #include "../../../../MarlinCore.h"
 #include "../../inc/MarlinConfig.h"
 
-#ifdef LV_CONF_PATH
-  #undef LV_CONF_PATH
-#endif
-#define LV_CONF_PATH "../../../../../Marlin/src/lcd/extui/lib/mks_7_ui/lv_conf.h"
-
-#include "lv_conf.h"
+#include <lv_conf.h>
 #ifdef LV_PORTRAIT
   #undef TFT_WIDTH
   #undef TFT_HEIGHT

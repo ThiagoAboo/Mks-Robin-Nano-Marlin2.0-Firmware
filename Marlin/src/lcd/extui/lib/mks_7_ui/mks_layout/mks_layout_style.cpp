@@ -19,10 +19,8 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
  */
+
 #include "mks_layout_style.h"
-
-#if HAS_TFT_LVGL_7_UI
-
 #include "../mks_util.h"
 
 static lv_style_t style_cont_btn;
@@ -86,5 +84,3 @@ void mks_style_content_btn_title(lv_obj_t * obj, lv_color_t font_color)
 
     lv_obj_add_style(obj, LV_LABEL_PART_MAIN, &style_cont_btn_title);
 }
-
-#endif
