@@ -20,13 +20,16 @@
  *====================*/
 
 /* Maximal horizontal and vertical resolution to support by the library.*/
+#define LV_WIDTH_MAX  (480)
+#define LV_HEIGHT_MAX (320)
+
 //#define LV_PORTRAIT
 #ifdef LV_PORTRAIT
-  #define LV_HOR_RES_MAX          (320)
-  #define LV_VER_RES_MAX          (480)
+  #define LV_HOR_RES_MAX  LV_HEIGHT_MAX
+  #define LV_VER_RES_MAX  LV_WIDTH_MAX
 #else
-  #define LV_HOR_RES_MAX          (480)
-  #define LV_VER_RES_MAX          (320)
+  #define LV_HOR_RES_MAX  LV_WIDTH_MAX
+  #define LV_VER_RES_MAX  LV_HEIGHT_MAX
 #endif
 
 /* Color depth:
