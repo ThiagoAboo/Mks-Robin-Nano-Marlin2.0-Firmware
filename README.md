@@ -34,9 +34,9 @@ The images should be added to gcode file when slicing, and MKS has developed the
 1. Build config:
      
 - platformio.ini: 
-     
      default_envs = mks_robin_nano35    
-- Configuation.h:  
+     
+- Configuration.h:  
      #define SERIAL_PORT 3  
      #define MKS_ROBIN_TFT35  
      #define MOTHERBOARD BOARD_MKS_ROBIN_NANO  
@@ -53,9 +53,9 @@ The images should be added to gcode file when slicing, and MKS has developed the
 1. Build config:
      
 - platformio.ini: 
-     
      default_envs = mks_robin_nano35    
-- Configuation.h:   
+     
+- Configuration.h:   
      #define SERIAL_PORT 3  
      #define MKS_TS35_V2_0  
      #define MOTHERBOARD BOARD_MKS_ROBIN_NANO_V2     
@@ -72,20 +72,36 @@ The images should be added to gcode file when slicing, and MKS has developed the
 1. Build config:
      
 - platformio.ini: 
-     
      default_envs = mks_robin_nano_v3_usb_flash_drive_msc
-- Configuation.h:   
+     
+- Configuration.h:   
      #define SERIAL_PORT -1  
      #define MKS_TS35_V2_0  
      #define MOTHERBOARD BOARD_MKS_ROBIN_NANO_V3     
      #define TFT_LVGL_7_UI  
      #define TOUCH_SCREEN
 
-- Configuation_adv.h:    
+- Configuration_adv.h:    
      Now you can either use the TF card or USB disk, use TF card:   
     // #define USB_FLASH_DRIVE_SUPPORT  
     Use USB disk:  
      #define USB_FLASH_DRIVE_SUPPORT  
+
+1.1. LVGL configuration file
+
+- Copy the file "\Marlin\src\lcd\extui\lib\mks_7_ui\lv_conf.h" to the folder "\.pio\libdeps\mks_robin_nano35\lvgl\lv_conf.h" after the first build is executed.
+
+1.2. Configuration for screen rotation
+
+- This version supports all screen rotations.
+
+- Configuration.h:   
+     #define TFT_ROTATION //uncomment this line and inform the desired rotation
+     
+- lv_conf.h (\.pio\libdeps\mks_robin_nano35\lvgl\lv_conf.h):   
+     #define LV_WIDTH_MAX  (480) //fill with the width of the display
+     #define LV_HEIGHT_MAX (320) //fill with the height of the display
+     #define LV_PORTRAIT //uncomment this line if the rotation is 90 or 270 degrees
 
 2. Update firmware:
    
