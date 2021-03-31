@@ -39,16 +39,16 @@ void mks_task_handler() {
 }
 
 void mks_add_rotary_group(lv_obj_t * obj) { 
-    mks_trace_start(__func__);
+    MSK_TRACE_START(__func__);
     #if HAS_ROTARY_ENCODER
         lv_group_add_obj(rotaryGroup, obj);
-        mks_trace("mks_add_rotary_group: Sucess.\n");
+        MKS_TRACE("mks_add_rotary_group: Sucess.");
     #endif
-    mks_trace_end(__func__);
+    MSK_TRACE_END(__func__);
 }
 
 void mks_register_rotary_group() {
-    mks_trace_start(__func__);
+    MSK_TRACE_START(__func__);
 
     if (rotaryGroup != nullptr) { lv_group_del(rotaryGroup); }
     rotaryGroup = lv_group_create();
@@ -60,14 +60,14 @@ void mks_register_rotary_group() {
         enc_drv.read_cb = mks_mousewheel_read;
         lv_indev_t * enc_indev = lv_indev_drv_register(&enc_drv);
         lv_indev_set_group(enc_indev, rotaryGroup);
-        mks_trace("Register rotary endev");
+        MKS_TRACE("Register rotary endev");
     #endif
     
-    mks_trace_end(__func__);
+    MSK_TRACE_END(__func__);
 }
 
 void mks_clear_disp() {
-    mks_trace_start(__func__);
+    MSK_TRACE_START(__func__);
     if (scr != nullptr) { 
         lv_obj_clean(scr); 
     }
@@ -75,7 +75,7 @@ void mks_clear_disp() {
         scr = lv_obj_create(nullptr, nullptr);
         lv_scr_load(scr);
     }
-    mks_trace_end(__func__);
+    MSK_TRACE_END(__func__);
 }
 
 void mks_layout_set_cb(mks_layout_cb cb) {
@@ -83,14 +83,14 @@ void mks_layout_set_cb(mks_layout_cb cb) {
 }
 
 void mks_draw_layout_load() {
-    mks_trace_start(__func__);
+    MSK_TRACE_START(__func__);
     if (mks_layout_item == MKS_LAYOUT_NONE) mks_layout_item = MKS_LAYOUT_INIT;
     mks_clear_disp();
-    mks_trace_end(__func__);
+    MSK_TRACE_END(__func__);
 }
 
 void mks_draw_layout() {
-    mks_trace_start(__func__);
+    MSK_TRACE_START(__func__);
     if (mks_layout_item == MKS_LAYOUT_INIT) {
         mks_clear_disp(); 
         mks_layout_init();
@@ -98,7 +98,7 @@ void mks_draw_layout() {
     }
     if(_mks_layout_cb) { _mks_layout_cb(mks_layout_item, scr); }
     lv_refr_now(_lv_refr_get_disp_refreshing());
-    mks_trace_end(__func__);
+    MSK_TRACE_END(__func__);
 }
 
 void mks_event_handler(lv_obj_t * obj, lv_event_t event) {
@@ -107,13 +107,13 @@ void mks_event_handler(lv_obj_t * obj, lv_event_t event) {
 
     switch (event) {
     case LV_EVENT_CLICKED:
-        mks_trace("Event Clicked\n");
+        MKS_TRACE("Event Clicked");
         mks_layout_item = id;
         SERIAL_ECHOLNPAIR("mks_layout_item:", mks_layout_item);
         mks_draw_layout();
         break;
     case LV_EVENT_VALUE_CHANGED:
-        mks_trace("Event Value Changed\n");
+        MKS_TRACE("Event Value Changed");
         break;
     default:
         break;
@@ -147,11 +147,11 @@ lv_obj_t * mks_draw_label(const char * msg, lv_align_t alignLabel, lv_align_t al
 }
 
 void mks_change_label_text(lv_obj_t * obj, const char * msg, lv_align_t alignLabel) {
-     mks_trace_start(__func__);
+     MSK_TRACE_START(__func__);
     lv_label_set_text(obj, msg);
     lv_obj_realign(obj);
     lv_refr_now(_lv_refr_get_disp_refreshing());
-    mks_trace_end(__func__);
+    MSK_TRACE_END(__func__);
 }
 
 #endif

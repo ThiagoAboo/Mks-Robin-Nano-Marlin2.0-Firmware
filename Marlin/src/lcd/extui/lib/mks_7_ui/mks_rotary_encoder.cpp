@@ -33,7 +33,7 @@ int16_t enc_diff = 0;
 lv_indev_state_t state = LV_INDEV_STATE_REL;
 
 void mks_encoder_init() {
-  mks_trace_start(__func__);
+  MSK_TRACE_START(__func__);
   #if BUTTON_EXISTS(EN1)
     SET_INPUT_PULLUP(BTN_EN1);
   #endif
@@ -60,7 +60,7 @@ void mks_encoder_init() {
   #if BUTTON_EXISTS(RT)
     SET_INPUT(BTN_RT);
   #endif
-  mks_trace_end(__func__);
+  MSK_TRACE_END(__func__);
 }
  
 bool mks_mousewheel_read(lv_indev_drv_t * indev_drv, lv_indev_data_t * data) {

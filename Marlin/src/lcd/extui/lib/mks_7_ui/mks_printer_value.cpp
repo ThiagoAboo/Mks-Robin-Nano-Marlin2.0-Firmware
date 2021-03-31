@@ -27,7 +27,7 @@
 #include "../../../../module/temperature.h"
 
 float mks_get_value(mks_printer_value_t item, uint8_t index) {
-    mks_trace_start(__func__);
+    MSK_TRACE_START(__func__);
     switch (item) {
     case MKS_VALUE_TEMP_EXTRUDER:
         return thermalManager.temp_hotend[index].celsius;
@@ -95,11 +95,11 @@ float mks_get_value(mks_printer_value_t item, uint8_t index) {
         return 0;
         break;
     }
-    mks_trace_end(__func__);
+    MSK_TRACE_END(__func__);
 }
 
 const char * mks_get_valueChar(mks_printer_value_t item, uint8_t index) {
-    mks_trace_start(__func__);
+    MSK_TRACE_START(__func__);
     switch (item) {
     case MKS_WIFI_SSID:
         return "";
@@ -109,7 +109,7 @@ const char * mks_get_valueChar(mks_printer_value_t item, uint8_t index) {
         return "";
         break;
     }
-    mks_trace_end(__func__);
+    MSK_TRACE_END(__func__);
 }
 
 void mks_set_value(mks_printer_value_t item, uint8_t index, float value) {
@@ -143,7 +143,7 @@ void mks_set_value(mks_printer_value_t item, uint8_t index, float value) {
 }
 
 void mks_set_valueChar(mks_printer_value_t item, uint8_t index, const char * value) {
-    mks_trace_start(__func__);
+    MSK_TRACE_START(__func__);
     switch (item) {
     case MKS_WIFI_SSID:
         break;
@@ -151,7 +151,7 @@ void mks_set_valueChar(mks_printer_value_t item, uint8_t index, const char * val
     default:
         break;
     }
-    mks_trace_end(__func__);
+    MSK_TRACE_END(__func__);
 }
 
 #endif

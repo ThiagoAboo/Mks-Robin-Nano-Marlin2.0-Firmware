@@ -30,43 +30,9 @@ unsigned int mks_getTickDiff(unsigned int curTick, unsigned int lastTick) {
 
 void lvgl_log(lv_log_level_t level, const char * file, uint32_t line, const char * fnName, const char * dsc) 
 {
-    String debug = file;
-    debug.concat("(");
-    debug.concat(line);
-    debug.concat(") ");
-    debug.concat(fnName);
-    debug.concat(" : ");
-    debug.concat(dsc);
-    debug.concat("\n");
-
-    SERIAL_ECHO(debug.c_str());
+    MKS_TRACE("(", line, ") ", fnName, " : ", dsc);
 }
 
-void mks_trace_start(const char * msg) {
-  #if ENABLED(MARLIN_DEV_MODE)
-    SERIAL_ECHO_MSG("Iniciando ", msg);
-    delay(10);
-  #endif
-}
-
-void mks_trace_end(const char * msg) {
-  #if ENABLED(MARLIN_DEV_MODE)
-    SERIAL_ECHO_MSG("Finalizado ", msg);
-    delay(10);
-  #endif
-}
-
-void mks_trace_end_start(const char * msg1, const char * msg2) {
-  #if ENABLED(MARLIN_DEV_MODE)
-    SERIAL_ECHO_MSG("Finalizado ", msg1);
-    SERIAL_ECHO_MSG("Iniciando ", msg2);
-    delay(10);
-  #endif
-}
-
-void mks_trace(const char * V, ...) {
-  #if ENABLED(MARLIN_DEV_MODE)
-    SERIAL_ECHO_F(V);
-    delay(10);
-  #endif
-}
+void serial_trace_msg()  { static PGMSTR(tracemagic, "-TRACE--MSG--"); serialprintPGM(tracemagic); }
+void serial_trace_sta()  { static PGMSTR(tracemagic, "-TRACE-START-"); serialprintPGM(tracemagic); }
+void serial_trace_end()  { static PGMSTR(tracemagic, "-TRACE--END--"); serialprintPGM(tracemagic); }

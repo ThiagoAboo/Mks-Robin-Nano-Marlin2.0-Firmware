@@ -23,23 +23,7 @@
 
 #if HAS_TFT_LVGL_7_UI
 
-#include "../../inc/MarlinConfig.h"
-#include "../../../tft_io/tft_io.h"
-
-#if TFT_ROTATION == TFT_ROTATE_90 || TFT_ROTATION == TFT_ROTATE_90_MIRROR_X || TFT_ROTATION == TFT_ROTATE_90_MIRROR_Y || TFT_ROTATION == TFT_ROTATE_270 || TFT_ROTATION == TFT_ROTATE_270_MIRROR_X || TFT_ROTATION == TFT_ROTATE_270_MIRROR_Y
-  #undef TFT_WIDTH
-  #undef TFT_HEIGHT
-  #if ENABLED(TFT_RES_320x240)
-    #define TFT_WIDTH  240
-    #define TFT_HEIGHT 320
-  #elif ENABLED(TFT_RES_480x272)
-    #define TFT_WIDTH  272
-    #define TFT_HEIGHT 480
-  #elif ENABLED(TFT_RES_480x320)
-    #define TFT_WIDTH  320
-    #define TFT_HEIGHT 480
-  #endif
-#endif
+#include "mks_util.h"
 
 #if ENABLED(TOUCH_SCREEN_CALIBRATION)
   #include "../../../tft_io/touch_calibration.h"
@@ -54,13 +38,13 @@ static lv_obj_t * status_label;
 static lv_obj_t * point_label;
 
 void mks_init_touch() {
-  mks_trace_start(__func__);
+  MSK_TRACE_START(__func__);
   touch.Init();
-  mks_trace_end(__func__);
+  MSK_TRACE_END(__func__);
 }
 
 void mks_create_touch() {
-  mks_trace_start(__func__);
+  MSK_TRACE_START(__func__);
 
   #if ENABLED(TOUCH_SCREEN_CALIBRATION)
     // If calibration is required, let's trigger it now, handles the case when there is default value in configuration files
@@ -71,7 +55,7 @@ void mks_create_touch() {
     }
   #endif
 
-  mks_trace_end(__func__);
+  MSK_TRACE_END(__func__);
 }
 
 void mks_draw_touch_calibration_screen() {
@@ -106,7 +90,7 @@ bool mks_get_point(int16_t *x, int16_t *y) {
 }
 
 void mks_lv_update_touch_calibration_screen() {
-  mks_trace_start(__func__);
+  MSK_TRACE_START(__func__);
 
   uint16_t x, y;
 
@@ -151,7 +135,7 @@ void mks_lv_update_touch_calibration_screen() {
   // draw current message
   mks_change_label_text(status_label, str, LV_LABEL_ALIGN_CENTER);
 
-  mks_trace_end(__func__);
+  MSK_TRACE_END(__func__);
 }
 
 bool mks_touchpad_read(lv_indev_drv_t * indev_driver, lv_indev_data_t * data) {
@@ -166,15 +150,8 @@ bool mks_touchpad_read(lv_indev_drv_t * indev_driver, lv_indev_data_t * data) {
     if (mks_get_point(&last_x, &last_y)) {
       if (last_touch_state == LV_INDEV_STATE_PR) return false;
       data->state = LV_INDEV_STATE_PR;
-
-      // Set the coordinates (if released use the last-pressed coordinates)
-      #if TFT_ROTATION == TFT_ROTATE_180
-        data->point.x = TFT_WIDTH - last_x;
-        data->point.y = TFT_HEIGHT -last_y;
-      #else
-        data->point.x = last_x;
-        data->point.y = last_y;
-      #endif
+      data->point.x = last_x;
+      data->point.y = last_y;
 
       #ifdef DEBUG_TOUCH_CALIBRATION
         SERIAL_ECHOLNPAIR("TOUCH_X ", data->point.x);

@@ -6,7 +6,7 @@
 extern "C" {
 #endif
 
-#include "../mks_util.h"
+#include <lvgl.h>
 
 extern void mks_style_content_btn(lv_obj_t * obj, lv_color_t bg_color, lv_color_t grad_color);
 extern void mks_style_content_btn_title(lv_obj_t * obj, lv_color_t font_color);

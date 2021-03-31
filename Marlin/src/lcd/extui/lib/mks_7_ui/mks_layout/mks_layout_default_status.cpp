@@ -47,7 +47,7 @@ void mks_layout_status_update() {
 }
 
 void mks_layout_status(lv_obj_t * parent, lv_event_cb_t event) {
-    mks_trace_start(__func__);
+    MSK_TRACE_START(__func__);
     mks_layout_status_container(parent);
     mks_layout_status_temp(event, MKS_HOTEND_0);
     #if DISABLED(SINGLENOZZLE) && HAS_MULTI_EXTRUDER
@@ -59,7 +59,7 @@ void mks_layout_status(lv_obj_t * parent, lv_event_cb_t event) {
     mks_layout_status_position(event);
     mks_layout_status_position(event);
     mks_layout_status_position(event);
-    mks_trace_end(__func__);
+    MSK_TRACE_END(__func__);
 }
 
 void  mks_layout_status_container(lv_obj_t * parent) {
@@ -67,12 +67,12 @@ void  mks_layout_status_container(lv_obj_t * parent) {
     lv_obj_set_auto_realign(cont, true);
     lv_obj_align_origo(cont, NULL, LV_ALIGN_CENTER, 0, 0);
     lv_cont_set_fit(cont, LV_FIT_PARENT);
-    lv_cont_set_layout(cont, LV_LAYOUT_GRID);
+    lv_cont_set_layout(cont, LV_LAYOUT_PRETTY_MID);
     lv_obj_set_style_local_border_width(cont, LV_CONT_PART_MAIN, LV_STATE_DEFAULT, 0);
 }
 
 const char * mks_layout_status_temp_value(mks_layout_item_t item, uint8_t index) {
-    mks_trace_start(__func__);
+    MSK_TRACE_START(__func__);
     mks_printer_value_t item_value;
     String value = "Temp: ";
     
@@ -87,12 +87,12 @@ const char * mks_layout_status_temp_value(mks_layout_item_t item, uint8_t index)
     item_value = (item == MKS_BED ? MKS_VALUE_MAX_BED : MKS_VALUE_MAX_EXTRUDER);
     value.concat(String(mks_get_value(item_value,index),0));
 
-    mks_trace_end(__func__);
+    MSK_TRACE_END(__func__);
     return value.c_str();
 }
 
 void  mks_layout_status_temp(lv_event_cb_t event, mks_layout_item_t item) {
-    mks_trace_start(__func__);
+    MSK_TRACE_START(__func__);
     
     uint8_t index = (item == MKS_BED ? 2 : (item == MKS_HOTEND_0 ? 0 : 1));
     String title = LV_SYMBOL_CHARGE;
@@ -111,12 +111,13 @@ void  mks_layout_status_temp(lv_event_cb_t event, mks_layout_item_t item) {
     lv_label_set_align(value_temp[index], LV_LABEL_ALIGN_LEFT);
     lv_obj_align(value_temp[index], NULL, LV_ALIGN_IN_BOTTOM_LEFT, 0, 0);
 
+    lv_obj_realign(cont);
     mks_add_rotary_group(btn);
-    mks_trace_end(__func__);
+    MSK_TRACE_END(__func__);
 }
 
 void  mks_layout_status_position(lv_event_cb_t event) {
-    mks_trace_start(__func__);
+    MSK_TRACE_START(__func__);
     lv_obj_t * btn = lv_btn_create(cont, NULL);
     lv_obj_set_event_cb(btn, event);
 
@@ -139,7 +140,7 @@ void  mks_layout_status_position(lv_event_cb_t event) {
     lv_label_set_align(lValue, LV_LABEL_ALIGN_LEFT);
 
     mks_add_rotary_group(btn);
-    mks_trace_end(__func__);
+    MSK_TRACE_END(__func__);
 }
 
 #endif

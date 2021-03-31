@@ -34,25 +34,25 @@ uint8_t public_buf[513];
 
 void mks_init_spi() {
   
-  mks_trace_start("W25QXX.init");
+  MSK_TRACE_START("W25QXX.init");
   W25QXX.init(SPI_QUARTER_SPEED);
-  mks_trace_end("W25QXX.init");
+  MSK_TRACE_END("W25QXX.init");
 
   watchdog_refresh();
 
-  mks_trace_start("SPI_TFT.spi_init");
+  MSK_TRACE_START("SPI_TFT.spi_init");
   SPI_TFT.spi_init(SPI_FULL_SPEED);
-  mks_trace_end("SPI_TFT.spi_init");
+  MSK_TRACE_END("SPI_TFT.spi_init");
 
-  mks_trace_start("SPI_TFT.LCD_init");
+  MSK_TRACE_START("SPI_TFT.LCD_init");
   SPI_TFT.LCD_init();
-  mks_trace_end("SPI_TFT.LCD_init");
+  MSK_TRACE_END("SPI_TFT.LCD_init");
 
-  mks_trace_end(__func__);
+  MSK_TRACE_END(__func__);
 }
 
 void mks_lv_register() {
-  mks_trace_start(__func__);
+  MSK_TRACE_START(__func__);
 
   lv_disp_buf_init(&disp_buf, bmp_public_buf, nullptr, LV_HOR_RES_MAX * 14); /*Initialize the display buffer*/
 
@@ -91,7 +91,7 @@ void mks_lv_register() {
   lv_fs_drv_register(&sd_drv);
 */
 
-  mks_trace_end("mks_lv_register");
+  MSK_TRACE_END("mks_lv_register");
 }
 
 void mks_draw_error_message(PGM_P const msg) {

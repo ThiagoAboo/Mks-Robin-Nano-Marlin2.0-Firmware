@@ -25,7 +25,6 @@
 
 #include <SPI.h>
 
-#include "../../../../MarlinCore.h"
 #include "../../../../sd/cardreader.h"
 #include "../../../../module/motion.h"
 #include "../../../../module/planner.h"

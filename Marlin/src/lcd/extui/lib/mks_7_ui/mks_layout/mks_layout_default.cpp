@@ -36,9 +36,9 @@ static lv_obj_t * t4;
 static lv_task_t * task;
 
 void mks_layout_init() {
-    mks_trace_start(__func__);
+    MSK_TRACE_START(__func__);
     mks_layout_set_cb(mks_layout_callback);
-    mks_trace_end(__func__);
+    MSK_TRACE_END(__func__);
 }
 
 void mks_layout_event(lv_obj_t * obj, lv_event_t event) { 
@@ -93,7 +93,7 @@ void mks_create_main_panel(lv_obj_t * parent) {
 
     lv_obj_set_style_local_text_font(tv, LV_TABVIEW_PART_TAB_BTN, LV_STATE_DEFAULT, &lv_font_montserrat_18);
 
-    #if TFT_ROTATION == TFT_ROTATE_90 | TFT_ROTATION == TFT_ROTATE_270
+    #ifdef LV_PORTRAIT
         t1 = lv_tabview_add_tab(tv, LV_SYMBOL_HOME "");
         //t2 = lv_tabview_add_tab(tv, LV_SYMBOL_LIST "");
         t3 = lv_tabview_add_tab(tv, LV_SYMBOL_SETTINGS "");

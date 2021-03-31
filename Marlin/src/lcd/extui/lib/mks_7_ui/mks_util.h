@@ -26,6 +26,35 @@
 
 #if HAS_TFT_LVGL_7_UI
 
+#include "../../../../MarlinCore.h"
+#include "../../inc/MarlinConfig.h"
+
+#include <lv_conf.h>
+#ifdef LV_PORTRAIT
+  #undef TFT_WIDTH
+  #undef TFT_HEIGHT
+  #if ENABLED(TFT_RES_320x240)
+    #define TFT_WIDTH  240
+    #define TFT_HEIGHT 320
+  #elif ENABLED(TFT_RES_480x272)
+    #define TFT_WIDTH  272
+    #define TFT_HEIGHT 480
+  #elif ENABLED(TFT_RES_480x320)
+    #define TFT_WIDTH  320
+    #define TFT_HEIGHT 480
+  #endif
+#endif
+
+#if ENABLED(MARLIN_DEV_MODE)
+  #define MKS_TRACE(V...)     do{ serial_trace_msg(); SERIAL_ECHOLNPAIR(V); }while(0)
+  #define MSK_TRACE_START(V)  do{ serial_trace_sta(); SERIAL_ECHOLN(V); }while(0)
+  #define MSK_TRACE_END(V)    do{ serial_trace_end(); SERIAL_ECHOLN(V); }while(0)
+#else
+  #define MKS_TRACE(V...)     do{ }while(0)
+  #define MSK_TRACE_START(V)  do{ }while(0)
+  #define MSK_TRACE_END(V)    do{ }while(0)
+#endif
+
 #ifdef __cplusplus
   extern "C" { /* C-declarations for C++ */
 #endif
@@ -36,10 +65,10 @@
 
 extern void lvgl_log(lv_log_level_t level, const char * file, uint32_t line, const char * fnName, const char * dsc);
 extern unsigned int mks_getTickDiff(unsigned int curTick, unsigned int lastTick);
-extern void mks_trace_start(const char * msg);
-extern void mks_trace_end(const char * msg);
-extern void mks_trace_end_start(const char * msg1, const char * msg2);
-extern void mks_trace(const char * V, ...);
+
+void serial_trace_msg();
+void serial_trace_sta();
+void serial_trace_end();
 
 #ifdef __cplusplus
   } /* C-declarations for C++ */
