@@ -178,7 +178,7 @@
 //
 // Misc. Functions
 //
-#if ANY(HAS_TFT_LVGL_UI, HAS_TFT_LVGL_UI_7)
+#if ANY(HAS_TFT_LVGL_UI, HAS_TFT_LVGL_7_UI)
   //#define MKSPWC
   #ifdef MKSPWC
     #define SUICIDE_PIN                     PB2   // Enable MKSPWC SUICIDE PIN
